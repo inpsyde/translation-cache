@@ -1,0 +1,51 @@
+{
+    "name": "inpsyde/translation-cache",
+    "description": "Improves site performance by caching translation files using WordPress object cache.",
+    "keywords": [
+        "wordpress",
+        "cache",
+        "caching",
+        "performance",
+        "mo file",
+        "i18n",
+        "internationalization",
+        "l10n",
+        "localization",
+        "language",
+        "languages",
+        "translation",
+        "translations",
+        "translate"
+    ],
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Inpsyde GmbH",
+            "email": "hello@inpsyde.com",
+            "homepage": "http://inpsyde.com",
+            "role": "Company"
+        },
+        {
+            "name": "Giuseppe Mazzapica",
+            "email": "giuseppe.mazzapica@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Masaki Takeuchi",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inpsyde\\TranslationCache\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
