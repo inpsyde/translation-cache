@@ -1,14 +1,15 @@
 <?php # -*- coding: utf-8 -*-
 /**
  * Plugin Name: Inpsyde Translation Cache
+ * Plugin URI:  https://github.com/inpsyde/translation-cache
  * Description: Improves site performance by caching translation files using WordPress object cache.
- * Author: Inpsyde GmbH, Giuseppe Mazzapica, Masaki Takeuchi
- * Version: 1.0.1
+ * Author:      Inpsyde GmbH, Giuseppe Mazzapica, Masaki Takeuchi
+ * Version:     1.0.1
  * Requires at least: 4.5
 
  * This file is part of the inpsyde-translation-cache package.
 
- * (c)  Inpsyde GmbH
+ * (c) Inpsyde GmbH
 
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
