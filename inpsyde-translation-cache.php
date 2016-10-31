@@ -1,24 +1,24 @@
 <?php # -*- coding: utf-8 -*-
-/*
-Plugin Name: Inpsyde Translation Cache
-Description: Improves site performance by caching translation files using WordPress object cache.
-Author: Inpsyde GmbH, Giuseppe Mazzapica, Masaki Takeuchi
-Version: 1.0.0
-Requires at least: 4.5
+/**
+ * Plugin Name: Inpsyde Translation Cache
+ * Description: Improves site performance by caching translation files using WordPress object cache.
+ * Author: Inpsyde GmbH, Giuseppe Mazzapica, Masaki Takeuchi
+ * Version: 1.0.0
+ * Requires at least: 4.5
 
-/*
  * This file is part of the inpsyde-translation-cache package.
- *
+
  * (c)  Inpsyde GmbH
- *
+
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * "Inpsyde Translation Cache" incorporates work covered by the following copyright and
- * permission notices:
- *
+
+ * "Inpsyde Translation Cache" incorporates work covered by the following copyright
+ * and permission notices:
+
  *     "MO Cache" WordPress plugin
- *     https://wordpress.org/plugins/mo-cache/ - https://github.com/m4i/wordpress-mo-cache
+ *     https://wordpress.org/plugins/mo-cache/
+ *     https://github.com/m4i/wordpress-mo-cache
  *     Copyright (c) 2011 Masaki Takeuchi (m4i)
  *     Released under the MIT.
  */
@@ -90,7 +90,7 @@ $is_regular_plugin and register_deactivation_hook(
 	function () {
 
 		$screen = get_current_screen();
-		if ( $screen->id !== 'plugins' ) {
+		if ( 'plugins' !== $screen->id ) {
 			return;
 		}
 
@@ -113,13 +113,13 @@ $is_regular_plugin and register_deactivation_hook(
 
 		$markup = '<div class="notice notice-error is-dismissible">%s</div>';
 		$msg    = '<p><em><strong>Inpsyde Translation Cache</strong></em> is installed as MU plugin without its "regular" plugin counterpart.</p>';
-		$msg .= '<p>Possible causes are:</p>';
-		$msg .= '<ol><li>was not possible to delete MU plugin on plugin deactivation</li>';
-		$msg .= '<li>the MU plugin was edited "manually" and preserved to avoid deleting custom work</li></ol>';
-		$msg .= '<p>In the first case, please delete MU plugin file at <code>%s</code> ';
-		$msg .= '(note <strong>it is not doing anything</strong> but showing this notice).</p>';
-		$msg .= '<p>In the second case, if the MU plugin was edited to do <em>something</em> without regular plugin, ';
-		$msg .= 'you should probably also delete the code that shows this notice (starts around line <code>%d</code>).</p>';
+		$msg   .= '<p>Possible causes are:</p>';
+		$msg   .= '<ol><li>was not possible to delete MU plugin on plugin deactivation</li>';
+		$msg   .= '<li>the MU plugin was edited "manually" and preserved to avoid deleting custom work</li></ol>';
+		$msg   .= '<p>In the first case, please delete MU plugin file at <code>%s</code> ';
+		$msg   .= '(note <strong>it is not doing anything</strong> but showing this notice).</p>';
+		$msg   .= '<p>In the second case, if the MU plugin was edited to do <em>something</em> without regular plugin, ';
+		$msg   .= 'you should probably also delete the code that shows this notice (starts around line <code>%d</code>).</p>';
 		printf( $markup, sprintf( $msg, __FILE__, $line ) );
 	}
 );
@@ -131,7 +131,7 @@ if ( $is_regular_plugin && $is_loaded ) {
 	return;
 }
 
-// We need to check for existence because when copied to MU plugin this file is loaded twice
+// We need to check for existence because when copied to MU plugin this file is loaded twice.
 if ( ! function_exists( __NAMESPACE__ . '\\load_translation_cache' ) ) {
 
 	/**
@@ -155,7 +155,7 @@ if ( ! function_exists( __NAMESPACE__ . '\\load_translation_cache' ) ) {
 
 		if ( ! $class_missing || class_exists( MoCache::class ) ) {
 
-			// Add plugin hooks, avoiding to add them more than once
+			// Add plugin hooks, avoiding to add them more than once.
 
 			$has_load = has_filter( 'override_load_textdomain', [ MoCache::class, 'load' ] );
 			$has_load or add_filter( 'override_load_textdomain', [ MoCache::class, 'load' ], 30, 3 );
@@ -191,5 +191,5 @@ add_action(
 	0
 );
 
-// Cleanup
+// Cleanup.
 unset( $is_regular_plugin, $is_loaded );
