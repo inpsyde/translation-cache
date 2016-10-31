@@ -191,8 +191,10 @@ require Composer to be installed or used.
 The 'classical' installation method (_download_ -> _put in plugins folder_ -> _activate_) works as well.
 
 ### Requirements
+
  * PHP 5.5 or higher.
  * WordPress, tested currently in version 4.7
+ 
 --------
  
 # License
