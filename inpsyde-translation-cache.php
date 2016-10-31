@@ -3,7 +3,7 @@
  * Plugin Name: Inpsyde Translation Cache
  * Description: Improves site performance by caching translation files using WordPress object cache.
  * Author: Inpsyde GmbH, Giuseppe Mazzapica, Masaki Takeuchi
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 4.5
 
  * This file is part of the inpsyde-translation-cache package.
@@ -29,7 +29,7 @@ if ( ! defined( 'WPMU_PLUGIN_DIR' ) ) {
 }
 
 $is_regular_plugin = did_action( 'muplugins_loaded' );
-$is_loaded         = did_action( 'inpsyde-translation-cache' );
+$is_loaded         = did_action( 'inpsyde_translation_cache' );
 
 /*
  * On activation as regular plugin, the plugin copy the file to MU Plugins folder,
@@ -156,7 +156,6 @@ if ( ! function_exists( __NAMESPACE__ . '\\load_translation_cache' ) ) {
 		if ( ! $class_missing || class_exists( MoCache::class ) ) {
 
 			// Add plugin hooks, avoiding to add them more than once.
-
 			$has_load = has_filter( 'override_load_textdomain', [ MoCache::class, 'load' ] );
 			$has_load or add_filter( 'override_load_textdomain', [ MoCache::class, 'load' ], 30, 3 );
 
@@ -176,7 +175,7 @@ if ( ! function_exists( __NAMESPACE__ . '\\load_translation_cache' ) ) {
 			 * Fires just after the plugin class has been discovered.
 			 * Useful to wrap calls to `Inpsyde\MoCache::flush_cache()`
 			 */
-			do_action( 'inpsyde-translation-cache' );
+			do_action( 'inpsyde_translation_cache' );
 		}
 	}
 }

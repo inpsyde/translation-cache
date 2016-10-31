@@ -1,5 +1,5 @@
 <?php # -*- coding: utf-8 -*-
-/*
+/**
  * This file is part of the inpsyde-translation-cache package.
  *
  * (c)  Inpsyde GmbH
@@ -14,9 +14,7 @@
  *     https://wordpress.org/plugins/mo-cache/ - https://github.com/m4i/wordpress-mo-cache
  *     Copyright (c) 2011 Masaki Takeuchi (m4i)
  *     Released under the MIT.
- */
-
-/**
+ *
  * @author  Giuseppe Mazzapica <giuseppe.mazzapica@gmail.com>
  * @author  Masaki Takeuchi
  * @package inpsyde-translation-cache
@@ -24,14 +22,21 @@
  */
 namespace Inpsyde\TranslationCache;
 
+/**
+ * Class MoCache
+ *
+ * @package Inpsyde\TranslationCache
+ */
 class MoCache {
 
-	const VERSION = '1.0.0';
-	const GROUP = 'mo_cache';
-	const KEYS_OPTION = 'inpsyde-translation-cache';
+	const VERSION        = '1.0.1';
+	const GROUP          = 'mo_cache';
+	const KEYS_OPTION    = 'inpsyde_translation_cache';
 	const DEFAULT_EXPIRE = 43200; // 12 hours
 
 	/**
+	 * Store options for each domain.
+	 *
 	 * @var array
 	 */
 	private static $options;
@@ -39,7 +44,7 @@ class MoCache {
 	/**
 	 * Flush cache for given domain(s).
 	 *
-	 * @param string|string[] $domains
+	 * @param string|string[] $domains The given domains.
 	 *
 	 * @return bool
 	 */
@@ -73,13 +78,18 @@ class MoCache {
 	}
 
 	/**
-	 * Flush all cached translations,
+	 * Flush all cached translations.
 	 */
 	public static function flush_all() {
 
 		$options       = is_array( self::$options ) ? self::$options : get_site_option( self::KEYS_OPTION, [] );
 		self::$options = [];
 
+		/**
+		 * The stored options.
+		 *
+		 * @var array $options
+		 */
 		foreach ( $options as $domain => $keys ) {
 			array_walk(
 				$keys,
@@ -100,9 +110,9 @@ class MoCache {
 	 *
 	 * @wp-hook switch_theme
 	 *
-	 * @param           $new_theme_name
-	 * @param \WP_Theme $new_theme
-	 * @param \WP_Theme $old_theme
+	 * @param string    $new_theme_name New theme string.
+	 * @param \WP_Theme $new_theme New Theme.
+	 * @param \WP_Theme $old_theme Old Theme.
 	 *
 	 * @return bool
 	 */
@@ -122,7 +132,7 @@ class MoCache {
 	 * @wp-hook activated_plugin
 	 * @wp-hook deactivate_plugin
 	 *
-	 * @param $plugin_file
+	 * @param string $plugin_file The plugin file name string.
 	 *
 	 * @return bool
 	 */
@@ -164,7 +174,7 @@ class MoCache {
 			return $found;
 		};
 
-		// Remove keys that can't be found in cache anymore
+		// Remove keys that can't be found in cache anymore.
 		array_walk(
 			self::$options,
 			function ( &$keys ) use ( $cache_found_filter ) {
@@ -199,6 +209,8 @@ class MoCache {
 	}
 
 	/**
+	 * Rewrite the textdomain load with cached values.
+	 *
 	 * @param bool   $override Whether to override the .mo file loading. Default false.
 	 * @param string $domain   Text domain. Unique identifier for retrieving translated strings.
 	 * @param string $mo_file  Path to the MO file.
@@ -215,7 +227,7 @@ class MoCache {
 		 * Fires before the MO translation file is loaded.
 		 *
 		 * @param string $domain Text domain. Unique identifier for retrieving translated strings.
-		 * @param string $mofile Path to the .mo file.
+		 * @param string $mo_file Path to the .mo file.
 		 *
 		 * @see \load_textdomain()
 		 */
@@ -224,12 +236,12 @@ class MoCache {
 		/**
 		 * Filters MO file path for loading translations for a specific text domain.
 		 *
-		 * @param string $mofile Path to the MO file.
+		 * @param string $mo_file Path to the MO file.
 		 * @param string $domain Text domain. Unique identifier for retrieving translated strings.
 		 *
 		 * @see \load_textdomain()
 		 */
-		$mo_file = apply_filters( 'load_textdomain_mofile', $mo_file, $domain );
+		$mo_file = (string) apply_filters( 'load_textdomain_mofile', $mo_file, $domain );
 
 		if ( function_exists( 'wp_cache_add_global_groups' ) ) {
 			wp_cache_add_global_groups( self::GROUP );
@@ -255,8 +267,8 @@ class MoCache {
 	/**
 	 * Returns true when cache is enabled.
 	 *
-	 * @param string $domain
-	 * @param string $mo_file
+	 * @param string $domain  Text domain. Unique identifier for retrieving translated strings.
+	 * @param string $mo_file The path to the mo file.
 	 *
 	 * @return bool
 	 */
@@ -274,7 +286,6 @@ class MoCache {
 		 * @param bool   $enabled True if plugin should work, by default when external object cache is in place.
 		 * @param string $domain  Text domain. Unique identifier for retrieving translated strings.
 		 * @param string $mo_file Path to the MO file.
-		 *
 		 */
 		$enabled = apply_filters( 'mocache_cache_enabled', $enabled, $domain, $mo_file );
 
@@ -285,15 +296,15 @@ class MoCache {
 	/**
 	 * Build a cache key from domain and mo file.
 	 *
-	 * @param string $domain
-	 * @param string $mo_file
+	 * @param string $domain  Text domain. Unique identifier for retrieving translated strings.
+	 * @param string $mo_file The path to the mo file.
 	 *
 	 * @return string
 	 */
 	private function get_key( $domain, $mo_file ) {
 
 		$seed       = '';
-		$is_default = ! $domain || $domain === 'default';
+		$is_default = ! $domain || 'default' === $domain;
 		if ( $is_default ) {
 			$seed = $GLOBALS[ 'wp_version' ];
 		}
@@ -318,15 +329,15 @@ class MoCache {
 	/**
 	 * Loads MO entries and headers from cache if available.
 	 *
-	 * @param string $key
-	 * @param \MO    $mo
+	 * @param string $key The key of the entry.
+	 * @param \MO    $mo  The translation entries.
 	 *
 	 * @return bool
 	 */
 	private function load_cache( $key, \MO $mo ) {
 
 		$cache = wp_cache_get( $key, self::GROUP, FALSE, $found );
-		if ( $found && isset( $cache[ 'entries' ] ) && isset( $cache[ 'headers' ] ) ) {
+		if ( $found && isset( $cache[ 'entries' ], $cache[ 'headers' ] ) ) {
 			$mo->entries = $cache[ 'entries' ];
 			$mo->set_headers( $cache[ 'headers' ] );
 
@@ -339,12 +350,12 @@ class MoCache {
 	/**
 	 * Set MO entries and headers in cache.
 	 *
-	 * @param string $key
-	 * @param \MO    $mo
-	 * @param string $domain
-	 * @param string $mo_file
+	 * @param string $key     The key of the entry.
+	 * @param \MO    $mo      The translation entries.
+	 * @param string $domain  Text domain. Unique identifier for retrieving translated strings.
+	 * @param string $mo_file The path to the mo file.
 	 *
-	 * @return bool
+	 * @return void
 	 */
 	private function set_cache( $key, \MO $mo, $domain, $mo_file ) {
 
@@ -364,13 +375,13 @@ class MoCache {
 		 */
 		$expire = apply_filters( 'mocache_cache_expire', $expire, $domain, $mo_file );
 
-		// If filters messed up expire, just use a minimum value
+		// If filters messed up expire, just use a minimum value.
 		is_int( $expire ) or $expire = MINUTE_IN_SECONDS;
 
 		$set = $expire >= 0 ? wp_cache_set( $key, $cache, self::GROUP, $expire ) : FALSE;
 
-		if ( $set && $domain && $domain !== 'default' ) {
-			// We store options of all generated keys
+		if ( $set && $domain && 'default' !== $domain ) {
+			// We store options of all generated keys.
 			$options = is_array( self::$options ) ? self::$options : get_site_option( self::KEYS_OPTION, [] );
 			array_key_exists( $domain, $options ) or $options[ $domain ] = [];
 			in_array( $key, $options[ $domain ], TRUE ) or $options[ $domain ][] = $key;
@@ -381,8 +392,8 @@ class MoCache {
 	/**
 	 * Set MO in global $l10n array, merging with any existing MO value.
 	 *
-	 * @param string $domain
-	 * @param \MO    $mo
+	 * @param string $domain Text domain. Unique identifier for retrieving translated strings.
+	 * @param \MO    $mo     The path to the mo file.
 	 *
 	 * @return bool
 	 */
