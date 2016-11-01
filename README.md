@@ -181,7 +181,7 @@ Available **filter** hooks:
 - **`mocache_cache_expire`** Can be used to customize the duration in seconds of cached values. Returning a value
   less or equal to zero prevent cache to be done at all.
 
-
+--------
 
 ## Installation
 
@@ -190,14 +190,16 @@ require Composer to be installed or used.
 
 The 'classical' installation method (_download_ -> _put in plugins folder_ -> _activate_) works as well.
 
-### Requirements
+--------
+
+## Requirements
 
  * PHP 5.5 or higher.
  * WordPress, tested currently in version 4.7
  
 --------
- 
-# License
+
+## License
 
 Copyright (c) 2016 Inpsyde GmbH.
 
