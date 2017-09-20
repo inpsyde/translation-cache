@@ -336,8 +336,8 @@ class MoCache {
 	 */
 	private function load_cache( $key, \MO $mo ) {
 
-		$cache = wp_cache_get( $key, self::GROUP, FALSE, $found );
-		if ( $found && isset( $cache[ 'entries' ], $cache[ 'headers' ] ) ) {
+		$cache = wp_cache_get( $key, self::GROUP, FALSE );
+		if ( is_array( $cache ) && isset( $cache[ 'entries' ], $cache[ 'headers' ] ) ) {
 			$mo->entries = $cache[ 'entries' ];
 			$mo->set_headers( $cache[ 'headers' ] );
 
