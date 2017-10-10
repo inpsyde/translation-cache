@@ -116,12 +116,10 @@ class MoCache {
 	 *
 	 * @return bool
 	 */
-	public static function on_theme_switch( $new_theme_name, \WP_Theme $new_theme, \WP_Theme $old_theme ) {
+	public static function on_theme_switch( $new_theme_name, \WP_Theme $new_theme, \WP_Theme $old_theme = null ) {
 
-		$domains = [
-			$old_theme->get( 'TextDomain' ),
-			$new_domain = $new_theme->get( 'TextDomain' ),
-		];
+		$domains = $old_theme ? [ $old_theme->get( 'TextDomain' ) ] : [];
+		$domains[] = $new_theme->get( 'TextDomain' );
 
 		return self::flush_cache( $domains );
 	}
