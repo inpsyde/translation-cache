@@ -201,7 +201,7 @@ The 'classical' installation method (_download_ -> _put in plugins folder_ -> _a
 
 ## License
 
-Copyright (c) 2016 Inpsyde GmbH.
+Copyright (c) since 2016 Inpsyde GmbH.
 
 _'Inpsyde Translation Cache'_ code is licensed under [MIT license](https://opensource.org/licenses/MIT).
 
