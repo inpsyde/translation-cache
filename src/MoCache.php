@@ -18,7 +18,6 @@
  * @author  Giuseppe Mazzapica <giuseppe.mazzapica@gmail.com>
  * @author  Masaki Takeuchi
  * @package inpsyde-translation-cache
- * @license http://opensource.org/licenses/MIT MIT
  */
 namespace Inpsyde\TranslationCache;
 
