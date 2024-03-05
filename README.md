@@ -201,9 +201,7 @@ The 'classical' installation method (_download_ -> _put in plugins folder_ -> _a
 
 ## License
 
-Copyright (c) since 2016 Inpsyde GmbH.
-
-_'Inpsyde Translation Cache'_ code is licensed under [this license](./LICENSE).
+This repository is a free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See [LICENSE](./LICENSE) for complete license.
 
 _'Inpsyde Translation Cache'_ incorporates work covered by the following copyright and
 permission notices:
